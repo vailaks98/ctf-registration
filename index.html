@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html ng-app='ctf'>
+
+<head>
+  <title>CTF</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script type="text/javascript" src="/node_modules/angular/angular.js"></script>
+  <script type="text/javascript" src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="/node_modules/angular-messages/angular-messages.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+  <script type="text/javascript" src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"></script>
+  <script type="text/javascript" src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+  <script type="text/javascript" src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <style type="text/css">
+    body {
+      background-image: url(stars.jpeg);
+      background-size: cover;
+      color: white;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .help-block {
+      color: red;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+    }
+
+    h2 {
+      text-align: center;
+      color: black;
+    }
+
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+    }
+
+    .inputs_table input[type="text"] {
+      width: 200px;
+    }
+
+    img.avatar {
+      width: 30%;
+      border-radius: 50%;
+    }
+
+    label {
+      color: darkblue;
+    }
+
+    form {
+      background-color: rgba(89, 180, 252, 0.53);
+      color: white;
+      padding: 40px;
+      margin-top: 200px;
+      padding-bottom: 60px;
+      box-shadow: 10px 10px 5px rgba(18, 6, 137, 0.58);
+    }
+
+    .btn {
+      width: 100%;
+      border-radius: 0px;
+      color: darkblue;
+    }
+
+    .center {
+      margin: auto;
+      width: 60%;
+
+      padding: 10px;
+    }
+
+    .form-control {
+      border-radius: 0px;
+      background-color: rgba(221, 248, 250, 0.88);
+      color: black;
+      border-radius: 1px solid #291212
+    }
+  </style>
+</head>
+
+<body>
+  <br><br><br><br><br>
+  <div class="w3-container w3-center  w3-animate-top ">
+    <h1>Registration Form</h1>
+  </div>
+  <div class="center">
+    <div class="container w3-animate-zoom">
+
+      <div class="row">
+
+        <div class="col-sm-8">
+
+
+
+          <form name="Registration" class="myForm">
+            <div ng-controller="RegisterController">
+
+              <div class="imgcontainer">
+                <img src="avatar.png" alt="Avatar" class="avatar">
+              </div>
+              <h2>USER</h2>
+              <div class="form-group">
+                <label class="hey">Name:</label>
+                <input name="name" color="black" class="form-control" ng-model="initialname" ng-minlength="3" ng-maxlength="8" placeholder=" enter name">
+                <span style="color:red" ng-show="Registration.name.$error.minlength">
+                Your Name Should Contain Atleast 3 Characters</span>
+                <span style="color:red" ng-show="Registration.name.$error.maxlength">
+                  Sorry You are Exceeding the Limit</span>
+                <br/>
+                <br/>
+              </div>
+              <div class="form-group">
+                <label> Enter the email-id : </label>
+                <input type="email" class="form-control" ng-model="emailid" name="myField" placeholder="email" />
+                <span style="color:red" ng-show="Registration.myField.$error.email">
+              This field must be a valid email address</span>
+                <br />
+                <br />
+              </div>
+              <div class="form-group">
+                <label>Enter password</label>
+                <input type="password" class="form-control" ng-model="password" placeholder="Password" name="password" required="required" ng-minlength="6" />
+                <div ng-if="Registration.password.$touched || signupSubmitted">
+                  <p ng-show="Registration.password.$error.required" class="help-block">Password is required</p>
+                  <p ng-show="Registration.password.$error.minlength" class="help-block">Minimum 6 character</p>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label> Confirm Password</label>
+                <input type="password" class="form-control" name="confirm_password" ng-model="confirm_password" placeholder="Confirm password" match-password="password" required>
+                <div ng-if="Registration.confirm_password.$touched || signupSubmitted">
+                  <p ng-show="Registration.confirm_password.$error.required" class="help-block">Confirm password is required</p>
+                  <p ng-show="Registration.confirm_password.$error.matchPassword && !Registration.confirm_password.$error.required" class="help-block">Confirm password didn't match</p>
+                </div>
+              </div>
+
+              <br><br>
+              <div class="form-group">
+                <label>GENDER:</label>
+                <br />
+                <label for="male">Male</label>
+                <input id="male" type="radio" name="content" ng-model="content" value="male">
+                <br />
+                <label for="female">Female</label>
+                <input id="female" type="radio" name="content" ng-model="content" value="female">
+              </div>
+
+
+              <br> <br><br>
+              <div class="form-group"><label>DOB:</label> <input type="date" class="form-control" name="bday" max="2008-01-01" ng-model="date">
+                <span style="color:red" ng-show="Registration.bday.$error.max">
+                Cant enter after 1/1/2008</span> </div>
+
+              <div class="form-group" ng-class="{ 'has-error' : (Registration.phone.$invalid || Registration.phone.$pristine)}">
+                <label>Phone :</label>
+                <input type="number" class="form-control" ng-minlength="10" ng-maxlength="10" min="7000000000" max="9999999999" id="inputPhone" name="phone" placeholder="Phone" ng-model="phone" ng-required="true">
+                <div ng-if="Registration.phone.$touched || signupSubmitted">
+                  <span style="color:red" class="help-block" ng-show="Registration.phone.$error.required ||
+                            Registration.phone.$error.number">
+                              Valid phone number is required
+                          </span>
+                  <span style="color:red" class="help-block" ng-show="((Registration.phone.$error.minlength ||
+                              Registration.phone.$error.maxlength) &&
+                              Registration.phone.$dirty) ">
+                              Phone number should be 10 digits
+                          </span>
+                  <span style="color:red" class="help-block" ng-show="((Registration.phone.$error.min ||
+                                    Registration.phone.$error.max) &&
+                                    Registration.phone.$dirty) ">
+                                    Enter phone number between 7000000000 and 9999999999
+                                </span>
+                </div>
+              </div>
+
+
+              <div class="form-group" ng-class="{ 'has-error' : (Registration.nphone.$invalid || Registration.nphone.$pristine)}">
+                <label>Alternate Phone :</label>
+                <input type="number" class="form-control" ng-minlength="10" ng-maxlength="10" id="ninputPhone" name="nphone" placeholder="nPhone" ng-model="user.nphone" ng-required="true">
+                <div ng-if="Registration.nphone.$touched || signupSubmitted">
+                  <span style="color:red" class="help-block" ng-show="Registration.nphone.$error.required ||
+                              Registration.nphone.$error.number">
+                                Valid phone number is required
+                            </span>
+                  <span style="color:red" class="help-block" ng-show="((Registration.nphone.$error.minlength ||
+                                Registration.nphone.$error.maxlength) &&
+                                Registration.nphone.$dirty) ">
+                                phone number should be 10 digits
+                            </span>
+                  <span style="color:red" class="help-block" ng-show="((Registration.phone.$error.min ||
+                                            Registration.phone.$error.max) &&
+                                            Registration.phone.$dirty) ">
+                                            Enter phone number between 7000000000 and 9999999999
+                                        </span>
+                  <span style="color:red" class="help-block" ng-show="(Registration.phone.$modelValue === Registration.nphone.$modelValue)">Phone number is the same! Please enter an alternate number!!!</span>
+
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+              <div class="form-group"> <br><br><label>State: </label><select name="states" class="form-control" ng-model="state">
+      <option value = "TamilNadu">TamilNadu</option>
+      <option value = "Karnataka">Karnataka</option>
+      <option value = "Andra Pradesh">Andhra Pradesh</option>
+      <option value = "West bengal">West bengal</option>
+      <option value = "Assam">Assam</option>
+      <option value = "Bihar">Bihar</option>
+      <option value = "Kerala">Kerala</option>
+      <option value = "Arunachal Pradesh">Arunachal Pradesh</option>
+      <option value = "Chattisgarh">Chattisgarh</option>
+      <option value = "Goa">Goa</option>
+      <option value = "Gujarat">Gujarat</option>
+      <option value = "Haryana">Haryana</option>
+      <option value = "Himachal Pradesh">Himachal Pradesh</option>
+      <option value = "Jammu&Kashmir">Jammu&Kashmir</option>
+      <option value = "Jharkhand">Jharkhand</option>
+      <option value = "Madhya Pradesh">Madhya Pradesh</option>
+      <option value = "Maharashtra">Maharashtra</option>
+      <option value = "Manipur">Manipur</option>
+      <option value = "Meghalaya">Meghalaya</option>
+      <option value = "Mizoram">Mizoram</option>
+      <option value = "Nagaland">Nagaland</option>
+      <option value = "Orissa">Orissa</option>
+      <option value = "Punjab">Punjab</option>
+      <option value = "Rajasthan">Rajasthan</option>
+      <option value = "Sikkim">Sikkim</option>
+      <option value = "Tripura">Tripura</option>
+      <option value = "Uttarancha">Uttaranchal</option>
+      <option value = "Uttar Pradesh">Uttar Pradesh</option>
+      <option value = "West Bengal">West Bengal</option>
+    </select>
+              </div>
+              <br><br><br>
+
+              <input type="submit" ng-click="submit()" class="btn btn-info" name="btn" value="SUBMIT">
+              <br> <br>
+
+              <ul>
+                <font size="4" color="black"><b><i>You have entered:
+                  <li>{{newname}}</li>
+                  <li>{{newemail}}</li>
+                  <li>{{pw1}}</li>
+                  <li>{{newgender}}</li>
+                  <li>{{newbday}}</li>
+                  <li>{{newtele}}</li>
+                  <li>{{newstate}}</li>
+
+              </ul>
+            </font>
+
+          </div>
+
+
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+</body>
+
+</html>
